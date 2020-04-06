@@ -17,7 +17,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
-import * as moment from 'moment';
+import moment from 'moment';
 import { dateToStruct, structToDate } from 'src/app/util/date-converter';
 
 const MODEL_UPDATE_DELAY_ON_TYPING = 500 //millis

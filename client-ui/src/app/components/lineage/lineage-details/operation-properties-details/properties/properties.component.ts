@@ -22,6 +22,7 @@ import { Property, PropertyType, PropertyTypeAware } from 'src/app/model/propert
 import * as ModalAction from 'src/app/store/actions/modal.actions';
 import { getOperationColor, getOperationIcon } from 'src/app/util/execution-plan';
 
+
 @Component({
   selector: 'properties',
   template: ''

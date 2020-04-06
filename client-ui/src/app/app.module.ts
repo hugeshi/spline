@@ -17,14 +17,14 @@
 import {HttpClientModule} from '@angular/common/http';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatExpansionModule} from '@angular/material';
+import { MatExpansionModule } from '@angular/material/expansion';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {EffectsModule} from '@ngrx/effects';
-import {routerReducer, RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
+import {routerReducer, RouterStateSerializer, StoreRouterConnectingModule, DefaultRouterStateSerializer} from '@ngrx/router-store';
 import {Store, StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
@@ -33,7 +33,6 @@ import {PrettyJsonModule} from 'angular2-prettyjson';
 import {CytoscapeNgLibModule} from 'cytoscape-ng-lib';
 import {BsDatepickerModule, DatepickerModule} from 'ngx-bootstrap/datepicker';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {ToastrModule} from 'ngx-toastr';
 import {filter} from 'rxjs/operators';
 import {environment} from '../environments/environment';
@@ -165,7 +164,6 @@ const ROOT_ROUTING = "app/"
     PrettyJsonModule,
     TreeModule.forRoot(),
     BrowserModule,
-    TooltipModule.forRoot(),
     CytoscapeNgLibModule,
     HttpClientModule,
     NgxDatatableModule,
@@ -200,7 +198,7 @@ const ROOT_ROUTING = "app/"
       RouterEffects,
       ModalEffects
     ]),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer }),
     RouterModule.forRoot([
       {path: ROOT_ROUTING + 'dashboard', component: DashboardComponent},
       {path: ROOT_ROUTING + 'lineage-overview', component: LineageOverviewComponent},

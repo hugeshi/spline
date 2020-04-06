@@ -13,14 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component } from '@angular/core';
-import { PropertiesComponent } from '../properties/properties.component';
 
-@Component({
-  selector: 'app-property-error',
-  templateUrl: './property-error.component.html',
-  styleUrls: ['property-error.component.scss']
-})
-export class PropertyErrorComponent extends PropertiesComponent {
+.container-fluid {
+    background-attachment: fixed;
+    background-color: #dfd5bf;
+    background-repeat: no-repeat;
+    color: #303a40;
+    height: 100%;
+    width: 100%;
+}
 
+.error-image {
+    left: 50%;
+    position: absolute;
+    top: 35%;
+    transform: translate(-50%, -50%);
+}
+
+.error-text {
+    font-family: Courier, monospace;
+    font-size: 35px;
+    font-weight: bold;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

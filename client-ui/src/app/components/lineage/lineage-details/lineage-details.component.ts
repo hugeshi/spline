@@ -18,7 +18,7 @@ import {Component, Input} from '@angular/core';
 @Component({
   selector: 'lineage-details',
   templateUrl: './lineage-details.component.html',
-  styleUrls: ['./lineage-details.component.less']
+  styleUrls: ['./lineage-details.component.scss']
 })
 export class LineageDetailsComponent {
 

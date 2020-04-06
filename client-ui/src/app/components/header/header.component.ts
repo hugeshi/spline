@@ -24,7 +24,7 @@ import * as RouterAction from 'src/app/store/actions/router.actions';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.less']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
 
@@ -39,11 +39,13 @@ export class HeaderComponent {
   public isVisible = (name: string): Observable<boolean> => {
     switch (name) {
       case 'lineage-overview':
-        return combineLatest(
+        return combineLatest([
           this.isSelectedMenuItem(name),
-          this.isSelectedMenuItem('lineage-detailed'),
-          (item1, item2) => (item1 || item2)
-        )
+          this.isSelectedMenuItem('lineage-detailed')
+        ])
+            .pipe(
+                map(([item1, item2]) => item1 || item2)
+            );
       case 'lineage-detailed':
         return this.isSelectedMenuItem(name)
       default: return of(false)

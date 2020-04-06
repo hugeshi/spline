@@ -42,7 +42,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'operation-properties-details',
   templateUrl: './operation-properties-details.component.html',
-  styleUrls: ['./operation-properties-details.component.less']
+  styleUrls: ['./operation-properties-details.component.scss']
 })
 export class OperationPropertiesDetailsComponent implements AfterViewInit, OnDestroy {
 

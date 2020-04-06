@@ -84,7 +84,9 @@ export class LineageComponent implements OnDestroy {
     const marker: object = {}
     const prependedSources = sources.map(s => s.pipe(startWith(marker)))
     return combineLatest(prependedSources)
-      .pipe(filter(xs => !_.includes(xs, marker)))
+      .pipe(
+          filter(xs => !_.includes(xs, marker))
+      );
   }
 
   public onNodeSelected(nodeId: string) {

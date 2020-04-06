@@ -20,7 +20,7 @@ import {NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: 'time-picker',
   templateUrl: './time-picker.component.html',
-  styleUrls: ['./time-picker.component.less']
+  styleUrls: ['./time-picker.component.scss']
 })
 export class TimePickerComponent implements OnChanges {
 

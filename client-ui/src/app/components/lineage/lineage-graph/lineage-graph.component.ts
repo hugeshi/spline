@@ -13,94 +13,105 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
-import {CytoscapeNgLibComponent} from 'cytoscape-ng-lib';
-import {operationColorCodes, operationIconCodes} from 'src/app/util/execution-plan';
-import {OperationType} from 'src/app/model/types/operationType';
-import {CytoscapeGraphVM} from "../../../model/viewModels/cytoscape/cytoscapeGraphVM";
-import {AttributeGraph} from "../../../generated/models/attribute-graph";
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { CytoscapeNgLibComponent } from 'cytoscape-ng-lib';
+import _ from 'lodash';
+import { OperationType } from 'src/app/model/types/operationType';
+import { operationColorCodes, operationIconCodes } from 'src/app/util/execution-plan';
+import { AttributeGraph } from '../../../generated/models/attribute-graph';
+import { CytoscapeGraphVM } from '../../../model/viewModels/cytoscape/cytoscapeGraphVM';
 
 
 @Component({
-  selector: 'lineage-graph',
-  templateUrl: './lineage-graph.component.html'
+    selector: 'lineage-graph',
+    templateUrl: './lineage-graph.component.html'
 })
-export class LineageGraphComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input()
-  public embeddedMode: boolean
+export class LineageGraphComponent implements OnChanges, AfterViewInit {
+    @Input()
+    public embeddedMode: boolean;
 
-  @Input()
-  public layout: object
+    @Input()
+    public layout: object;
 
-  @Input()
-  public graph: CytoscapeGraphVM
+    @Input()
+    set graph(data: CytoscapeGraphVM) {
+        this._data = _.cloneDeep(data);
+        const writeNode = this._data.nodes.find(n => n.data._type === 'Write');
+        writeNode.data = {
+            ...writeNode.data,
+            icon: operationIconCodes.get(OperationType.Write),
+            color: operationColorCodes.get(OperationType.Write)
+        };
+    }
 
-  @Input()
-  public selectedNode: string
+    @Input()
+    public selectedNode: string;
 
-  @Input()
-  public attributeGraph: AttributeGraph
+    @Input()
+    public attributeGraph: AttributeGraph;
 
-  @Output()
-  public selectedNodeChange = new EventEmitter<string>()
+    @Output()
+    public selectedNodeChange = new EventEmitter<string>();
 
-  @ViewChild(CytoscapeNgLibComponent, {static: true})
-  private cytograph: CytoscapeNgLibComponent
+    @ViewChild(CytoscapeNgLibComponent, { static: true })
+    private cytograph: CytoscapeNgLibComponent;
 
-  public ngOnInit(): void {
-    const writeNode = this.graph.nodes.find(n => n.data._type == 'Write')
-    writeNode.data.icon = operationIconCodes.get(OperationType.Write)
-    writeNode.data.color = operationColorCodes.get(OperationType.Write)
-  }
+    private _data: CytoscapeGraphVM;
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedNode']) this.refreshSelectedNode()
-    if (changes['attributeGraph']) this.refreshAttributeGraph()
-  }
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes['selectedNode']) {
+            this.refreshSelectedNode();
+        }
+        if (changes['attributeGraph']) {
+            this.refreshAttributeGraph();
+        }
+    }
 
-  public ngAfterViewInit(): void {
-    this.cytograph.cy.add(this.graph)
-    this.cytograph.cy.nodeHtmlLabel([{
-      tpl: d => d.icon && `<i class="fa fa-4x" style="color:${d.color}">${String.fromCharCode(d.icon)}</i>`
-    }])
-    this.cytograph.cy.panzoom()
-    this.cytograph.cy.layout(this.layout).run()
+    public ngAfterViewInit(): void {
+        const domInitDelayInMs = 200; // in us;
+        setTimeout(
+            () => this.initGraph(),
+            domInitDelayInMs
+        );
+    }
 
-    this.cytograph.cy.ready(() => {
-      this.cytograph.cy.style().selector('core').css({'active-bg-size': 0})
-      this.cytograph.cy.style().selector('edge').css({'width': 7})
-      this.cytograph.cy.on('mouseover', 'node', e => e.originalEvent.target.style.cursor = 'pointer')
-      this.cytograph.cy.on('mouseout', 'node', e => e.originalEvent.target.style.cursor = '')
-      this.cytograph.cy.on('click', event => {
-        const target = event.target
-        const nodeId = (target != this.cytograph.cy && target.isNode()) ? target.id() : null
-        this.selectedNodeChange.emit(nodeId)
-      })
-    })
-    this.refreshSelectedNode()
-    this.refreshAttributeGraph()
-  }
+    private initGraph() {
+        this.cytograph.cy.add(this._data);
+        this.cytograph.cy.nodeHtmlLabel([{
+            tpl: d => d.icon && `<i class="fa fa-4x" style="color:${d.color}">${String.fromCharCode(d.icon)}</i>`
+        }]);
 
-  private refreshSelectedNode() {
-    this.cytograph && this.cytograph.cy && this.cytograph.cy.ready(() => {
-      this.cytograph.cy.nodes().unselect()
-      this.cytograph.cy.nodes().filter(`[id='${this.selectedNode}']`).select()
-    })
-  }
+        this.cytograph.cy.ready(() => {
+            this.cytograph.cy.style().selector('core').css({ 'active-bg-size': 0 });
+            this.cytograph.cy.style().selector('edge').css({ 'width': 7 });
+            this.cytograph.cy.on('mouseover', 'node', e => e.originalEvent.target.style.cursor = 'pointer');
+            this.cytograph.cy.on('mouseout', 'node', e => e.originalEvent.target.style.cursor = '');
+            this.cytograph.cy.on('click', event => {
+                const target = event.target;
+                const nodeId = (target !== this.cytograph.cy && target.isNode()) ? target.id() : null;
+                this.selectedNodeChange.emit(nodeId);
+            });
+        });
 
-  private refreshAttributeGraph() {
-    this.cytograph && this.cytograph.cy && this.cytograph.cy.ready(() => {
-      console.log("[ATTRIBUTE GRAPH]", this.attributeGraph)
-    })
-  }
+        this.refreshSelectedNode();
+        this.refreshAttributeGraph();
+        this.cytograph.cy.layout(this.layout).run();
+    }
+
+    private refreshSelectedNode() {
+        if (this.cytograph && this.cytograph.cy) {
+            this.cytograph.cy.ready(() => {
+                this.cytograph.cy.nodes().unselect();
+                this.cytograph.cy.nodes().filter(`[id='${this.selectedNode}']`).select();
+            });
+        }
+    }
+
+    private refreshAttributeGraph() {
+        if (this.cytograph && this.cytograph.cy) {
+            this.cytograph.cy.ready(() => {
+                console.log('[ATTRIBUTE GRAPH]', this.attributeGraph);
+            });
+        }
+    }
 }

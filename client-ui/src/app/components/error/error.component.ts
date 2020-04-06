@@ -23,7 +23,7 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
-  styleUrls: ['./error.component.less']
+  styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent implements OnInit, OnDestroy {
 

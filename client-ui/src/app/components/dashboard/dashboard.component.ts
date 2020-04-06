@@ -16,7 +16,7 @@
 import {Component, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import moment from 'moment';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import {AppState} from 'src/app/model/app-state';
@@ -29,14 +29,14 @@ import {DateRange, Timestamp} from "../time-frame-picker/time-frame-picker.model
 import {PageableExecutionEventsResponse} from "../../generated/models/pageable-execution-events-response";
 import {TablePage, TableSort} from "./dashboard.model";
 import {DashboardLoadingIndicator} from "./dashboard.loading-indicator";
-import {MatSlideToggleChange} from '@angular/material';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 const SEARCH_TERM_UPDATE_DELAY = 300 //millis
 
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['dashboard.component.less'],
+  styleUrls: ['dashboard.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnDestroy {

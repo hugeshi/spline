@@ -15,11 +15,17 @@
  */
 import * as ConfigAction from '../actions/config.actions';
 
+
 export type Action = ConfigAction.ConfigActions
 
 export function configReducer(state: any, action: Action): any {
     switch (action.type) {
-        case ConfigAction.ConfigActionTypes.CONFIG_GET_SUCCESS: return { ...state, ...action.payload }
-        default: return state
+        case ConfigAction.ConfigActionTypes.CONFIG_GET_SUCCESS:
+            return {
+                ...state,
+                ...action.payload
+            };
+        default:
+            return state;
     }
 }

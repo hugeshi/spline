@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { OperationType } from '../model/types/operationType'
+import { OperationType } from '../model/types/operationType';
+
 
 export function getWriteOperationIdFromExecutionId(executionId: string): string {
-    return `${executionId}:0`
+    return `${executionId}:0`;
 }
 
 export const operationIconCodes: Map<string, number> = new Map([

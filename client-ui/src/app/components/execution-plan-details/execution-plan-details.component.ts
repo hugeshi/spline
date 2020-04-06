@@ -22,7 +22,7 @@ import { ExecutedLogicalPlanVM } from 'src/app/model/viewModels/executedLogicalP
 @Component({
   selector: 'execution-plan-details',
   templateUrl: './execution-plan-details.component.html',
-  styleUrls: ['./execution-plan-details.component.less']
+  styleUrls: ['./execution-plan-details.component.scss']
 })
 export class ExecutionPlanDetailsComponent {
 

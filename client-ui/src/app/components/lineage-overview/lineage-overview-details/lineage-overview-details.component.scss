@@ -13,14 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component } from '@angular/core';
-import { PropertiesComponent } from '../properties/properties.component';
 
-@Component({
-  selector: 'app-property-error',
-  templateUrl: './property-error.component.html',
-  styleUrls: ['property-error.component.scss']
-})
-export class PropertyErrorComponent extends PropertiesComponent {
 
+.lineage-overview-container {
+    overflow-y: hidden;
+}
+
+.lineage-overview-details {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.lineage-overview-details-title {
+    font-weight: bold;
+}
+
+.lineage-overview-title {
+    margin-top: 25px;
+    top: 0;
+    width: 100%;
+    word-wrap: break-word;
+    z-index: 99999;
 }

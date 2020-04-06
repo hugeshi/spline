@@ -1,0 +1,82 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "es2017": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "@typescript-eslint/tslint",
+    "import",
+    "unused-imports"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "parserOptions": {
+    "tsconfigRootDir": ".",
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
+  "rules": {
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/unbound-method": [
+      "error",
+      {
+        "ignoreStatic": true
+      }
+    ],
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/tslint/config": [
+      "error",
+      {
+        "lintFile": "./tslint.json"
+      }
+    ],
+    "@typescript-eslint/no-namespace": 0,
+    "no-inner-declarations": 0,
+    "import/newline-after-import": [
+      "error",
+      {
+        "count": 2
+      }
+    ],
+    "import/no-duplicates": 1,
+    "max-lines": 0,
+    "brace-style": [
+      "error",
+      "stroustrup"
+    ],
+    "curly": [
+      "error",
+      "all"
+    ],
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1,
+        "FunctionDeclaration": {
+          "parameters": "first"
+        }
+      }
+    ],
+    "unused-imports/no-unused-imports": "error"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.spec.ts",
+        "**/testing/**/*.ts"
+      ]
+    }
+  ]
+}

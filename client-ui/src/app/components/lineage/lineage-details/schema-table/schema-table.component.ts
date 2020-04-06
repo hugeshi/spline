@@ -21,7 +21,7 @@ import {DataTypeVM} from "../../../../model/viewModels/dataTypeVM";
 @Component({
   selector: 'schema-table',
   templateUrl: './schema-table.component.html',
-  styleUrls: ['./schema-table.component.less']
+  styleUrls: ['./schema-table.component.scss']
 })
 export class SchemaTableComponent implements OnChanges {
 

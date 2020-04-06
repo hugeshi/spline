@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Actions, Effect, EffectNotification, ofType, OnRunEffects} from '@ngrx/effects';
-import {Action} from '@ngrx/store';
-import {Observable, of} from 'rxjs';
-import {exhaustMap, map, switchMap, takeUntil} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Actions, Effect, EffectNotification, ofType, OnRunEffects } from '@ngrx/effects';
+import { Observable, of } from 'rxjs';
+import { exhaustMap, map, switchMap, takeUntil } from 'rxjs/operators';
 import * as ConfigAction from '../store/actions/config.actions';
 
 
@@ -34,7 +33,7 @@ export class ConfigEffects implements OnRunEffects {
     ) { }
 
     @Effect()
-    public getConfig$: Observable<Action> = this.actions$.pipe(
+    getConfig$ = this.actions$.pipe(
         ofType(ConfigAction.ConfigActionTypes.CONFIG_GET),
         switchMap((action: any) => this.load(action.payload)),
         map(res => new ConfigAction.GetSuccess(res))

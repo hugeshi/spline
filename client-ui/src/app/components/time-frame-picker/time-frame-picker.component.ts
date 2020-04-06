@@ -15,7 +15,7 @@
  */
 
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 import {NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 import {DateRange, Timestamp} from "./time-frame-picker.model";
 

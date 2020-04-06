@@ -23,7 +23,7 @@ import {AttributeVM} from 'src/app/model/viewModels/attributeVM';
 @Component({
   selector: 'lineage-overview-details',
   templateUrl: './lineage-overview-details.component.html',
-  styleUrls: ['./lineage-overview-details.component.less']
+  styleUrls: ['./lineage-overview-details.component.scss']
 })
 export class LineageOverviewDetailsComponent {
 
