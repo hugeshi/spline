@@ -19,7 +19,10 @@ package za.co.absa.spline.consumer.rest
 import java.util
 
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import org.springframework.context.annotation.{Bean, ComponentScan, Configuration}
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.{Bean, ComponentScan, Configuration, PropertySource}
+import org.springframework.http.client.{ClientHttpRequestFactory, HttpComponentsClientHttpRequestFactory}
+import org.springframework.web.client.RestTemplate
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler
 import org.springframework.web.servlet.config.annotation.{EnableWebMvc, WebMvcConfigurer}
 import za.co.absa.commons.config.ConfTyped
@@ -31,8 +34,10 @@ import scala.concurrent.duration._
 
 @EnableWebMvc
 @Configuration
+@PropertySource(value = Array("classpath:application.properties"))
 @ComponentScan(basePackageClasses = Array(
-  classOf[controller._package]
+  classOf[controller._package],
+  classOf[services._package]
 ))
 class ConsumerRESTConfig extends WebMvcConfigurer {
 
@@ -51,6 +56,22 @@ class ConsumerRESTConfig extends WebMvcConfigurer {
     .registerModule(DefaultScalaModule)
     .setDefaultTyping(new ConsumerTypeResolver)
   )
+
+  @Bean
+  def createRestTemplate(clientHttpRequestFactory: ClientHttpRequestFactory) = {
+    new RestTemplate(clientHttpRequestFactory)
+  }
+
+  @Bean
+  def createClientHttpRequestFactory(
+                                      @Value("${connect.timeout:10000}") connectionTimeOut: Int,
+                                      @Value("${read.timeout:10000}") readTimeOut: Int
+                                    ) = {
+    val httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory()
+    httpComponentsClientHttpRequestFactory.setConnectionRequestTimeout(connectionTimeOut)
+    httpComponentsClientHttpRequestFactory.setReadTimeout(readTimeOut)
+    httpComponentsClientHttpRequestFactory
+  }
 }
 
 object ConsumerRESTConfig extends DefaultConfigurationStack with ConfTyped {
