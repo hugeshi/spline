@@ -20,7 +20,8 @@
         ArangoDB Connection URL.
         Format: arangodb://user:password@host:port/database_name
     -->
-    <Environment name="spline/database/connectionUrl" type="java.lang.String" override="false"/>
+    <Environment name="spline/database/connectionUrl" type="java.lang.String"
+                 value="http://localhost:8080/spline/consumer" override="false"/>
 
     <!--
         REST adaptive timeout config.
