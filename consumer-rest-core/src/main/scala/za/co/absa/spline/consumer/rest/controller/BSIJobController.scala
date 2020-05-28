@@ -34,4 +34,28 @@ class BSIJobController @Autowired()(val sparkJobIOsRepository: SparkJobIOsReposi
     sparkJobIOsRepository.findJobOutputTables(appId)
   }
 
+
+  @GetMapping(Array("model-ios"))
+  @ApiOperation(value = "Get spark input and output path ")
+  def modelIOs(
+                @ApiParam(value = "BSI model name")
+                @RequestParam("modelName") modelName: String
+              ): Future[SparkJobIOs] = {
+    //TODO get the appId by modelName
+    val appId = null
+    sparkJobIOsRepository.findJobIOs(appId)
+  }
+
+  @GetMapping(Array("variable-model"))
+  @ApiOperation(value = "Get model output variable and model tables")
+  def variableAndModelTable(
+                             @ApiParam(value = "BSI model name")
+                             @RequestParam("modelName") modelName: String
+                           ): Future[Array[OutputTable]] = {
+    //TODO get the appId by modelName
+    val appId = null
+    sparkJobIOsRepository.findJobOutputTables(appId)
+
+  }
+
 }
