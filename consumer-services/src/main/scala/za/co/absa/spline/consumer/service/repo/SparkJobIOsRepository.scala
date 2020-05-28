@@ -5,7 +5,7 @@ import za.co.absa.spline.consumer.service.model.sparkjob.{OutputTable, SparkJobI
 import scala.concurrent.{ExecutionContext, Future}
 
 trait SparkJobIOsRepository {
-  def findJobIOs(appId: String)(implicit ex: ExecutionContext): Future[Array[SparkJobIOs]]
+  def findJobIOs(appId: String)(implicit ex: ExecutionContext): Future[SparkJobIOs]
 
   def findJobOutputTables(appId: String)(implicit ex: ExecutionContext): Future[Array[OutputTable]]
 }

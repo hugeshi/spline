@@ -2,15 +2,17 @@ package za.co.absa.spline.consumer.service.repo
 
 import com.arangodb.async.ArangoDatabaseAsync
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Repository
 import za.co.absa.spline.consumer.service.model.sparkjob.{OutputTable, SparkJobIOs}
 
 import scala.concurrent.{ExecutionContext, Future}
 
+@Repository
 class SparkJobIOsRepositoryImpl @Autowired()(db: ArangoDatabaseAsync) extends SparkJobIOsRepository {
 
   import za.co.absa.spline.persistence.ArangoImplicits._
 
-  override def findJobIOs(appId: String)(implicit ex: ExecutionContext): Future[Array[SparkJobIOs]] = {
+  override def findJobIOs(appId: String)(implicit ex: ExecutionContext): Future[SparkJobIOs] = {
     db.queryOne[SparkJobIOs](
       """
         |let writeops = (for event in progress
@@ -58,7 +60,6 @@ class SparkJobIOsRepositoryImpl @Autowired()(db: ArangoDatabaseAsync) extends Sp
         |           }
       """.stripMargin,
       Map("appId" -> appId)
-    )
-      .map(_.toArray)
+    ).map(_.toArray)
   }
 }
