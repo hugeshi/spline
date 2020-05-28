@@ -3,7 +3,7 @@ package za.co.absa.spline.consumer.service.model.sparkjob
 import io.swagger.annotations.{ApiModel, ApiModelProperty}
 
 @ApiModel(description = " Spark Job output tables")
-class OutputTable(
+case class OutputTable(
                    @ApiModelProperty(value = "database base")
                    database: String,
                    @ApiModelProperty(value = "table name")
