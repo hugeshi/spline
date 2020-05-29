@@ -18,7 +18,7 @@ class BSIJobController @Autowired()(val sparkJobIOsRepository: SparkJobIOsReposi
   import scala.concurrent.ExecutionContext.Implicits._
 
   @GetMapping(Array("job-ios"))
-  @ApiOperation(value = "Get spark input and output path ")
+  @ApiOperation(value = "Get spark job input and output path ")
   def jobIos(
               @ApiParam(value = "Spark Application Id")
               @RequestParam("appId") appId: String
@@ -27,7 +27,7 @@ class BSIJobController @Autowired()(val sparkJobIOsRepository: SparkJobIOsReposi
   }
 
   @GetMapping(Array("output-tables"))
-  @ApiOperation(value = "Get Job output tables")
+  @ApiOperation(value = "Get spark job output tables")
   def jobOutputTables(
                        @ApiParam(value = "Spark Application Id")
                        @RequestParam("appId") appId: String
@@ -37,7 +37,7 @@ class BSIJobController @Autowired()(val sparkJobIOsRepository: SparkJobIOsReposi
 
 
   @GetMapping(Array("model-ios"))
-  @ApiOperation(value = "Get spark input and output path ")
+  @ApiOperation(value = "Get model input and output path ")
   def modelIOs(
                 @ApiParam(value = "BSI model name")
                 @RequestParam("modelName") modelName: String
@@ -47,7 +47,7 @@ class BSIJobController @Autowired()(val sparkJobIOsRepository: SparkJobIOsReposi
   }
 
   @GetMapping(Array("variable-model"))
-  @ApiOperation(value = "Get model output variable and model tables")
+  @ApiOperation(value = "Get model variable and model tables")
   def variableAndModelTable(
                              @ApiParam(value = "BSI model name")
                              @RequestParam("modelName") modelName: String
