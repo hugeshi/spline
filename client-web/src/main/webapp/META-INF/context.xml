@@ -18,7 +18,7 @@
     <!--
         Spline Consumer REST API endpoint URL.
     -->
-    <Environment name="spline/consumer/url" type="java.lang.String" value="arangodb://localhost:8529/spline"
+    <Environment name="spline/consumer/url" type="java.lang.String" value="http://localhost:8080/consumer"
                  override="false"/>
 
 </Context>

@@ -21,7 +21,7 @@
         Format: arangodb://user:password@host:port/database_name
     -->
     <Environment name="spline/database/connectionUrl" type="java.lang.String"
-                 value="http://localhost:8080/spline/consumer" override="false"/>
+                 value="arangodb://localhost:8529/spline" override="false"/>
 
     <!--
         REST adaptive timeout config.
