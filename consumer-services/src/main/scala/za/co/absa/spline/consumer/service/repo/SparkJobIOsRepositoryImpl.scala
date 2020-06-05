@@ -1,6 +1,7 @@
 package za.co.absa.spline.consumer.service.repo
 
 import com.arangodb.async.ArangoDatabaseAsync
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import za.co.absa.spline.consumer.service.model.sparkjob.{OutputTable, SparkJobIOs}
@@ -9,6 +10,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Repository
 class SparkJobIOsRepositoryImpl @Autowired()(db: ArangoDatabaseAsync) extends SparkJobIOsRepository {
+
+  val logger = LoggerFactory.getLogger(classOf[SparkJobIOsRepositoryImpl])
 
   import za.co.absa.spline.persistence.ArangoImplicits._
 
